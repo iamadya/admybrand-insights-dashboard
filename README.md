@@ -4,7 +4,7 @@ A modern, responsive marketing analytics dashboard built with Next.js, TypeScrip
 
 ## Live Demo
 
-[View Live Dashboard](https://6891eb651c977319d4086f69--admybrand-analytics.netlify.app/)  
+[View Live Dashboard](https://admybrand-analytics.netlify.app/)
 
 ## Table of Contents
 
