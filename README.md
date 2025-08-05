@@ -2,6 +2,27 @@
 
 A modern, responsive marketing analytics dashboard built with Next.js, TypeScript, and Tailwind CSS. Features real-time metrics, interactive charts, and comprehensive campaign management tools.
 
+## Live Demo
+
+[View Live Dashboard]()  
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Architecture Overview](#architecture-overview)
+- [AI Usage Report](#ai-usage-report-admybrand-insights-analytics-dashboard)
+- [Tools Used](#tools-used)
+- [Key Prompts](#key-prompts)
+- [Workflow and AIManual Split](#workflow-and-aimanual-split)
+- [Deployment](#deployment)
+- [Development](#development)
+- [Mobile Optimization](#mobile-optimization)
+- [Customization](#customization)
+- [License](#license)
+- [Contributing](#contributing)
+
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -61,7 +82,7 @@ project/
 └── public/                # Static assets
 ```
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ### Tech Stack
 
@@ -76,19 +97,19 @@ project/
 
 ### Key Features
 
-#### 🔄 Real-Time Data Updates
+#### Real-Time Data Updates
 - **Mock API Simulation**: `lib/mock-api.ts` generates realistic metric variations
 - **Custom Hook**: `hooks/use-real-time-metrics.ts` handles polling and state management
 - **Automatic Refresh**: 5-second intervals with pause on tab visibility change
 - **Error Handling**: Graceful fallbacks and error states
 
-#### 📊 Interactive Dashboard
+#### Interactive Dashboard
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Dark/Light Theme**: System preference detection with manual toggle
 - **Chart Widgets**: Line charts, bar charts, and pie charts with animations
 - **Data Tables**: Sortable, filterable, and exportable campaign data
 
-#### 🎨 UI Components
+#### UI Components
 - **shadcn/ui**: Modern, accessible component library
 - **Consistent Design**: CSS custom properties for theming
 - **Animations**: Smooth transitions and loading states
@@ -228,14 +249,14 @@ npm run lint     # Run ESLint
 - **Prettier**: Automatic code formatting (configure in your editor)
 - **Component Naming**: PascalCase for components, camelCase for functions
 
-## 📱 Mobile Optimization
+## Mobile Optimization
 
 - **Responsive Grid**: Adaptive layouts for all screen sizes
 - **Touch Interactions**: Optimized for mobile gestures
 - **Performance**: Lazy loading and efficient rendering
 - **Accessibility**: ARIA labels and keyboard navigation
 
-## 🔧 Customization
+## Customization
 
 ### Theming
 - Modify CSS custom properties in `app/globals.css`
@@ -247,11 +268,11 @@ npm run lint     # Run ESLint
 - Update interfaces in component files for new data structures
 - Modify chart configurations in dashboard components
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -261,4 +282,4 @@ This project is licensed under the MIT License.
 
 ---
 
-Built with ❤️ using Next.js, TypeScript, and modern web technologies.
+Built using Next.js, TypeScript, and modern web technologies.
