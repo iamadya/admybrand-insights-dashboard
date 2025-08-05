@@ -4,7 +4,7 @@ A modern, responsive marketing analytics dashboard built with Next.js, TypeScrip
 
 ## Live Demo
 
-[View Live Dashboard]()  
+[View Live Dashboard](https://6891eb651c977319d4086f69--admybrand-analytics.netlify.app/)  
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ A modern, responsive marketing analytics dashboard built with Next.js, TypeScrip
 - [Contributing](#contributing)
 
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -34,8 +34,8 @@ A modern, responsive marketing analytics dashboard built with Next.js, TypeScrip
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd project
+git clone https://github.com/iamadya/admybrand-insights-dashboard.git
+cd admybrand-insights-dashboard
 
 # Install dependencies
 npm install
@@ -54,7 +54,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 project/
@@ -175,7 +175,7 @@ AI tools generated roughly **65%** of the foundational code:
 
 I focused my manual effort on customizing styling for **brand consistency**, optimizing **layouts for responsiveness and accessibility**, refining **real-time logic**, and ensuring a **premium user experience** with finely-tuned **animations and interactivity**. This blend of AI acceleration and thoughtful manual adjustments enabled delivery of a **beautifully executed, production-ready dashboard** in record time.
 
-## 🚀 Deployment
+## Deployment
 
 ### Vercel (Recommended)
 
@@ -224,7 +224,7 @@ npm run build
 # Upload contents to any static hosting service
 ```
 
-## 🛠️ Development
+## Development
 
 ### Available Scripts
 
