@@ -50,7 +50,7 @@ export function exportToCSV<T extends Record<string, any>>(
   }
 }
 
-// PDF Export functionality (using browser's print to PDF)
+// PDF Export functionality using jsPDF for direct download
 export function exportToPDF(
   data: any[],
   columns: { key: string; label: string }[],
@@ -61,157 +61,91 @@ export function exportToPDF(
     throw new Error('No data to export');
   }
 
-  // Create a new window for printing
-  const printWindow = window.open('', '_blank');
-  if (!printWindow) {
-    throw new Error('Unable to open print window. Please check popup blockers.');
-  }
-
-  // Calculate column widths based on content
-  const getColumnWidth = (colKey: string) => {
-    switch (colKey) {
-      case 'name': return '25%';
-      case 'startDate':
-      case 'endDate': return '12%';
-      case 'spend': return '12%';
-      case 'impressions': return '15%';
-      case 'clicks': return '10%';
-      case 'conversions': return '12%';
-      case 'status': return '10%';
-      default: return 'auto';
-    }
-  };
-
-  // Generate table HTML with proper column sizing
-  const tableHTML = `
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: fixed;">
-      <thead>
-        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
-          ${columns.map(col =>
-            `<th style="padding: 8px 6px; text-align: left; font-weight: 600; border: 1px solid #dee2e6; width: ${getColumnWidth(col.key)}; font-size: 10px; word-wrap: break-word;">${col.label}</th>`
-          ).join('')}
-        </tr>
-      </thead>
-      <tbody>
-        ${data.map(row => `
-          <tr style="border-bottom: 1px solid #dee2e6;">
-            ${columns.map(col => {
-              let value = row[col.key];
-              // Format specific data types
-              if (col.key.includes('Date') && value) {
-                value = new Date(value).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                });
-              } else if (col.key === 'spend' && typeof value === 'number') {
-                value = `$${value.toLocaleString()}`;
-              } else if ((col.key === 'impressions' || col.key === 'clicks' || col.key === 'conversions') && typeof value === 'number') {
-                value = value.toLocaleString();
-              } else if (col.key === 'status') {
-                value = value || '';
-              }
-              return `<td style="padding: 8px 6px; border: 1px solid #dee2e6; font-size: 9px; word-wrap: break-word; overflow-wrap: break-word;">${value || ''}</td>`;
-            }).join('')}
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
-
-  // Create the print document
-  printWindow.document.write(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>${title || filename}</title>
-        <meta charset="UTF-8">
-        <style>
-          * { box-sizing: border-box; }
-          body {
-            margin: 15px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 11px;
-            line-height: 1.3;
+  // Import jsPDF dynamically to avoid SSR issues
+  import('jspdf').then(({ default: jsPDF }) => {
+    import('jspdf-autotable').then(({ default: autoTable }) => {
+      // Create new PDF document
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      // Add title if provided
+      if (title) {
+        doc.setFontSize(16);
+        doc.text(title, doc.internal.pageSize.getWidth() / 2, 15, { align: 'center' });
+        
+        // Add generation timestamp
+        doc.setFontSize(10);
+        const timestamp = `Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`;
+        doc.text(timestamp, doc.internal.pageSize.getWidth() / 2, 22, { align: 'center' });
+      }
+      
+      // Format data for autotable
+      const tableData = data.map(row => {
+        return columns.map(col => {
+          let value = row[col.key];
+          
+          // Format specific data types
+          if (col.key.includes('Date') && value) {
+            value = new Date(value).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            });
+          } else if (col.key === 'spend' && typeof value === 'number') {
+            value = `$${value.toLocaleString()}`;
+          } else if ((col.key === 'impressions' || col.key === 'clicks' || col.key === 'conversions') && typeof value === 'number') {
+            value = value.toLocaleString();
           }
-          @media print {
-            @page {
-              margin: 0.5in;
-              size: landscape;
-            }
-            body { margin: 0; }
-            .no-print { display: none !important; }
-            table {
-              page-break-inside: auto;
-              width: 100% !important;
-            }
-            tr {
-              page-break-inside: avoid;
-              page-break-after: auto;
-            }
-            thead {
-              display: table-header-group;
-              page-break-after: avoid;
-            }
-            th, td {
-              page-break-inside: avoid;
-            }
+          
+          return value || '';
+        });
+      });
+      
+      // Add table to PDF
+      autoTable(doc, {
+        head: [columns.map(col => col.label)],
+        body: tableData,
+        startY: title ? 30 : 15,
+        headStyles: {
+          fillColor: [248, 249, 250],
+          textColor: [0, 0, 0],
+          fontStyle: 'bold'
+        },
+        styles: {
+          fontSize: 9,
+          cellPadding: 3
+        },
+        columnStyles: columns.reduce((styles, col, index) => {
+          // Set column widths based on content type
+          if (col.key === 'name') {
+            styles[index] = { cellWidth: 50 };
+          } else if (col.key.includes('Date')) {
+            styles[index] = { cellWidth: 25 };
+          } else if (col.key === 'status') {
+            styles[index] = { cellWidth: 20 };
           }
-          .print-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-align: center;
-            color: #333;
-          }
-          .print-date {
-            text-align: center;
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 10px;
-          }
-          table {
-            font-size: 9px;
-            width: 100%;
-            max-width: 100%;
-          }
-          th {
-            background-color: #f8f9fa !important;
-            -webkit-print-color-adjust: exact;
-            color-adjust: exact;
-            print-color-adjust: exact;
-          }
-          th, td {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          .summary {
-            margin-top: 15px;
-            font-size: 10px;
-            color: #666;
-            text-align: center;
-          }
-        </style>
-      </head>
-      <body>
-        ${title ? `<div class="print-title">${title}</div>` : ''}
-        <div class="print-date">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</div>
-        ${tableHTML}
-        <div class="summary">Total records: ${data.length}</div>
-      </body>
-    </html>
-  `);
-
-  printWindow.document.close();
-
-  // Wait for content to load, then print
-  printWindow.onload = () => {
-    setTimeout(() => {
-      printWindow.print();
-      printWindow.close();
-    }, 500);
-  };
+          return styles;
+        }, {} as Record<number, any>)
+      });
+      
+      // Add footer with record count
+      const pageCount = (doc as any).internal.pages.length - 1;
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.text(`Total records: ${data.length}`, doc.internal.pageSize.getWidth() / 2, 
+          doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+        doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.getWidth() - 20, 
+          doc.internal.pageSize.getHeight() - 10);
+      }
+      
+      // Save PDF file
+      doc.save(filename);
+    });
+  });
 }
 
 // Format data for export (remove React components, format dates, etc.)

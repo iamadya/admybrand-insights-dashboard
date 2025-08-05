@@ -111,8 +111,8 @@ export function DataTable<T extends Record<string, any>>({
       exportToPDF(formattedData, columnsToUse as { key: string; label: string }[], filename, title);
 
       toast({
-        title: "Export Initiated",
-        description: "PDF export has been initiated. Please check your browser's print dialog.",
+        title: "Export Successful",
+        description: `Data exported to ${filename}`,
       });
     } catch (error) {
       toast({
