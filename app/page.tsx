@@ -509,7 +509,7 @@ export default function Dashboard() {
     return {
       ...metric,
       icon: icons[index] || <BarChart3 className="h-4 w-4" />,
-      previousValue: previousMetrics[index]?.value
+      previousValue: previousMetrics[index]?.value || metric.value
     };
   }) : [
     {
@@ -517,28 +517,32 @@ export default function Dashboard() {
       value: "$54,231",
       change: "+12.5% from last month",
       icon: <DollarSign className="h-4 w-4" />,
-      trend: 'up' as const
+      trend: 'up' as const,
+      previousValue: "$54,231"
     },
     {
       title: "Users",
       value: "14,432",
       change: "+8.2% from last month",
       icon: <Users className="h-4 w-4" />,
-      trend: 'up' as const
+      trend: 'up' as const,
+      previousValue: "14,432"
     },
     {
       title: "Conversions",
       value: "2,847",
       change: "+15.3% from last month",
       icon: <BarChart3 className="h-4 w-4" />,
-      trend: 'up' as const
+      trend: 'up' as const,
+      previousValue: "2,847"
     },
     {
       title: "Growth %",
       value: "24.8%",
       change: "+4.1% from last month",
       icon: <TrendingUp className="h-4 w-4" />,
-      trend: 'up' as const
+      trend: 'up' as const,
+      previousValue: "24.8%"
     }
   ];
 
