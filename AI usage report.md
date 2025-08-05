@@ -49,4 +49,4 @@ AI tools generated roughly **65%** of the foundational code:
 - Mock data handling  
 - Boilerplate  
 
-I focused my manual effort on customizing styling for **brand consistency**, optimizing **layouts for responsiveness and accessibility**, refining **real-time logic**, and ensuring a **premium user experience** with finely-tuned **animations and interactivity**. This blend of AI acceleration and thoughtful manual adjustments enabled delivery of a **beautifully executed, production-ready dashboard** in record time.
+I focused my manual effort on customizing styling for **brand consistency**, optimizing **layouts for responsiveness and accessibility**, and ensuring a **premium user experience** with finely-tuned **animations and interactivity**. This blend of AI acceleration and thoughtful manual adjustments enabled delivery of a **beautifully executed, production-ready dashboard** in record time.
