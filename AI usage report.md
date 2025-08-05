@@ -14,3 +14,6 @@ Create sections with line, bar, and donut charts using mock data, and enhance ch
 Add a data table for recent campaigns with sorting, filtering, pagination, and loading skeletons.
 
 Simulate real-time updates by fetching new metric data every 5 seconds, provide export functionality, and organize the codebase into fully reusable components.
+
+Workflow & AI/Manual Split
+AI tools generated roughly 65% of the foundational code (major components, base hooks, mock data handling, and boilerplate). I focused my manual effort on customizing styling for brand consistency, optimizing layouts for responsiveness and accessibility, refining real-time logic, and ensuring a premium user experience with finely-tuned animations and interactivity. This blend of AI acceleration and thoughtful manual adjustments enabled delivery of a beautifully executed,
