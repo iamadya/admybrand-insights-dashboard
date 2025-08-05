@@ -34,7 +34,7 @@ A modern, responsive marketing analytics dashboard built with Next.js, TypeScrip
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/iamadya/admybrand-insights-dashboard.git
 cd project
 
 # Install dependencies
