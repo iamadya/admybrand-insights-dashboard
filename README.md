@@ -12,12 +12,16 @@ A modern, responsive marketing analytics dashboard built with Next.js, TypeScrip
 - [Project Structure](#project-structure)
 - [Architecture Overview](#architecture-overview)
 - [AI Usage Report](#ai-usage-report-admybrand-insights-analytics-dashboard)
+- [Tools Used](#tools-used)
+- [Key Prompts](#key-prompts)
+- [Workflow and AIManual Split](#workflow-and-aimanual-split)
 - [Deployment](#deployment)
 - [Development](#development)
 - [Mobile Optimization](#mobile-optimization)
 - [Customization](#customization)
 - [License](#license)
 - [Contributing](#contributing)
+
 
 ## 🚀 Quick Start
 
