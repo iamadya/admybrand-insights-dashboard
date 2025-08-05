@@ -23,7 +23,7 @@ A modern, responsive marketing analytics dashboard built with Next.js, TypeScrip
 - [Contributing](#contributing)
 
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -54,7 +54,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 project/
@@ -224,7 +224,7 @@ npm run build
 # Upload contents to any static hosting service
 ```
 
-## 🛠️ Development
+## Development
 
 ### Available Scripts
 
