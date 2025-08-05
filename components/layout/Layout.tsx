@@ -70,7 +70,7 @@ export function Layout({
 
 
 return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <div className={`min-h-screen bg-background transition-colors duration-300 ${className}`}>
         {/* Sidebar */}
         {showSidebar && (

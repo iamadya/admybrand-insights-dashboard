@@ -123,6 +123,36 @@ export function Navbar({
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  // If not mounted yet, render a placeholder button to avoid hydration mismatch
+  const renderThemeToggle = () => {
+    if (!mounted) return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="rounded-full transition-all duration-300 hover:scale-110 hover:bg-primary/10 focus:ring-2 focus:ring-primary/20 focus:outline-none"
+        aria-label="Loading theme"
+      >
+        <div className="h-4 w-4 opacity-0"></div>
+      </Button>
+    );
+
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={toggleTheme}
+        className="rounded-full transition-all duration-300 hover:scale-110 hover:bg-primary/10 focus:ring-2 focus:ring-primary/20 focus:outline-none"
+        aria-label={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {theme === 'dark' ? (
+          <Sun className="h-4 w-4 transition-transform duration-300 hover:rotate-12" />
+        ) : (
+          <Moon className="h-4 w-4 transition-transform duration-300 hover:-rotate-12" />
+        )}
+      </Button>
+    );
+  };
+
   return (
     <div className={`site-header w-full relative z-50 ${className}`}>
       <div className={`inside-header flex items-center justify-between w-full ${isScrolled ? 'scrolled' : ''} ${useJsScroll ? 'js-scroll' : ''}`}>
@@ -223,21 +253,7 @@ export function Navbar({
           )}
 
           {/* Theme Toggle */}
-          {showThemeToggle && mounted && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="rounded-full transition-all duration-300 hover:scale-110 hover:bg-primary/10 focus:ring-2 focus:ring-primary/20 focus:outline-none"
-              aria-label={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-4 w-4 transition-transform duration-300 hover:rotate-12" />
-              ) : (
-                <Moon className="h-4 w-4 transition-transform duration-300 hover:-rotate-12" />
-              )}
-            </Button>
-          )}
+          {showThemeToggle && renderThemeToggle()}
 
           {/* User Profile */}
           {showUserProfile && (
